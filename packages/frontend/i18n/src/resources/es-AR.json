@@ -46,5 +46,11 @@
   "Favorite": "Favorito",
   "Favorited": "Favoritos",
   "Favorites": "Favoritos",
-  "Find 0 result": "Encontrados 0 resultados"
+  "Find 0 result": "Encontrados 0 resultados",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.title": "Modo de solo lectura predeterminado",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.description": "Abrir documentos como solo lectura de forma predeterminada. Podés cambiar al modo de edición usando el botón de editar.",
+  "com.affine.readonly-mode.edit.tooltip": "Modo de edición",
+  "com.affine.readonly-mode.readonly.tooltip": "Modo de solo lectura",
+  "com.affine.readonly-mode.edit.button": "Editar",
+  "com.affine.readonly-mode.readonly.button": "Solo lectura"
 }
