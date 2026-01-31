@@ -34,18 +34,18 @@ jobs:
       - name: Build Core
         run: yarn affine @affine/web build
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          # R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          # R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          # R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           BUILD_TYPE: ${{ inputs.build-type }}
-          CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: 'affine-web'
-          SENTRY_RELEASE: ${{ inputs.app-version }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
-          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
+          # CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
+          # SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          # SENTRY_PROJECT: 'affine-web'
+          # SENTRY_RELEASE: ${{ inputs.app-version }}
+          # SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          # PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
+          # MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
       - name: Upload web artifact
         uses: actions/upload-artifact@v4
         with:
@@ -68,17 +68,17 @@ jobs:
       - name: Build Admin
         run: yarn affine @affine/admin build
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          # R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          # R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          # R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           BUILD_TYPE: ${{ inputs.build-type }}
-          CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: 'affine-admin'
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
-          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
+          # CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
+          # SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          # SENTRY_PROJECT: 'affine-admin'
+          # SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          # PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
+          # MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
       - name: Upload admin artifact
         uses: actions/upload-artifact@v4
         with:
@@ -101,17 +101,17 @@ jobs:
       - name: Build Mobile
         run: yarn affine @affine/mobile build
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          # R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          # R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          # R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           BUILD_TYPE: ${{ inputs.build-type }}
-          CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: 'affine-mobile'
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
-          MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
+          # CAPTCHA_SITE_KEY: ${{ secrets.CAPTCHA_SITE_KEY }}
+          # SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          # SENTRY_PROJECT: 'affine-mobile'
+          # SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          # PERFSEE_TOKEN: ${{ secrets.PERFSEE_TOKEN }}
+          # MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
       - name: Upload mobile artifact
         uses: actions/upload-artifact@v4
         with:
@@ -147,9 +147,9 @@ jobs:
           extra-flags: workspaces focus @affine/server-native
       - name: Build Rust
         uses: ./.github/actions/build-rust
-        env:
-          AFFINE_PRO_PUBLIC_KEY: ${{ secrets.AFFINE_PRO_PUBLIC_KEY }}
-          AFFINE_PRO_LICENSE_AES_KEY: ${{ secrets.AFFINE_PRO_LICENSE_AES_KEY }}
+        # env:
+        #   AFFINE_PRO_PUBLIC_KEY: ${{ secrets.AFFINE_PRO_PUBLIC_KEY }}
+        #   AFFINE_PRO_LICENSE_AES_KEY: ${{ secrets.AFFINE_PRO_LICENSE_AES_KEY }}
         with:
           target: ${{ matrix.targets.name }}
           package: '@affine/server-native'
@@ -277,7 +277,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           provenance: true
           file: .github/deployment/front/Dockerfile
-          tags: ghcr.io/toeverything/affine-front:${{inputs.build-type}}-${{ inputs.git-short-hash }}
+          tags: ghcr.io/dalamudx/affine-front:${{inputs.build-type}}-${{ inputs.git-short-hash }}
 
       - name: Build graphql Dockerfile
         uses: docker/build-push-action@v6
@@ -288,4 +288,4 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           provenance: true
           file: .github/deployment/node/Dockerfile
-          tags: ghcr.io/toeverything/affine:${{inputs.build-type}}-${{ inputs.git-short-hash }}
+          tags: ghcr.io/dalamudx/affine:${{inputs.build-type}}-${{ inputs.git-short-hash }}
