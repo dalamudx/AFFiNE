@@ -38,7 +38,7 @@ export const usePageHelper = (docCollection: Workspace) => {
       }
 
       if (options.show !== false) {
-        workbench.openDoc(page.id, {
+        workbench.openDoc(page.id + '?isNewDoc=true', {
           at: options.at,
           show: options.show,
         });

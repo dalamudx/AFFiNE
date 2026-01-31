@@ -76,5 +76,11 @@
   "dark": "Mørk",
   "light": "Lys",
   "others": "Andre",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.title": "Standard skrivebeskyttet tilstand",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.description": "Åben dokumenter som skrivebeskyttede som standard. Du kan skifte til redigeringstilstand ved hjælpaf redigeringsknappen.",
+  "com.affine.readonly-mode.edit.tooltip": "Redigeringstilstand",
+  "com.affine.readonly-mode.readonly.tooltip": "Skrivebeskyttet tilstand",
+  "com.affine.readonly-mode.edit.button": "Rediger",
+  "com.affine.readonly-mode.readonly.button": "Skrivebeskyttet",
   "system": "System"
 }

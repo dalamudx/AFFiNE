@@ -20,6 +20,7 @@ import { TopTip } from '@affine/core/components/top-tip';
 import { ServerService } from '@affine/core/modules/cloud';
 import { DocService } from '@affine/core/modules/doc';
 import { EditorService } from '@affine/core/modules/editor';
+import { EditorSettingService } from '@affine/core/modules/editor-setting';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { GlobalContextService } from '@affine/core/modules/global-context';
 import { PeekViewService } from '@affine/core/modules/peek-view';
@@ -56,7 +57,7 @@ import {
 import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import type { Subscription } from 'rxjs';
 
 import { PageNotFound } from '../../404';
@@ -288,7 +289,17 @@ const DetailPageImpl = memo(function DetailPageImpl() {
 
   const canEdit = useGuard('Doc_Update', doc.id);
 
-  const readonly = !canEdit || isInTrash;
+  // Import EditorSettingService to get defaultReadonlyMode
+  const editorSettingService = useService(EditorSettingService);
+  const settings = useLiveData(editorSettingService.editorSetting.settings$);
+
+  const [searchParams] = useSearchParams();
+  const isNewDoc = searchParams.get('isNewDoc') === 'true';
+
+  // Apply readonly based on priority: permission > trash > default readonly setting
+  // Exclude just created docs (via URL param) from default readonly mode
+  const readonly =
+    !canEdit || isInTrash || (settings.defaultReadonlyMode && !isNewDoc);
 
   return (
     <FrameworkScope scope={editor.scope}>

@@ -37,6 +37,8 @@ const AffineEditorSettingSchema = z.object({
     .default('open-in-active-view'),
   // linux only:
   enableMiddleClickPaste: z.boolean().default(false),
+  // default readonly mode
+  defaultReadonlyMode: z.boolean().default(false),
 });
 
 export const EditorSettingSchema = BSEditorSettingSchema.merge(
