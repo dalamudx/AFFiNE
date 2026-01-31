@@ -2243,5 +2243,11 @@
   "error.COMMENT_NOT_FOUND": "Commento non trovato.",
   "error.REPLY_NOT_FOUND": "Risposta non trovata.",
   "error.COMMENT_ATTACHMENT_NOT_FOUND": "Allegato del commento non trovato.",
-  "error.COMMENT_ATTACHMENT_QUOTA_EXCEEDED": "Hai superato la quota di dimensione dell'allegato del commento."
+  "error.COMMENT_ATTACHMENT_QUOTA_EXCEEDED": "Hai superato la quota di dimensione dell'allegato del commento.",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.title": "Modalità di sola lettura predefinita",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.description": "Apri i documenti in modalità di sola lettura per impostazione predefinita. Puoi passare alla modalità di modifica utilizzando il pulsante di modifica.",
+  "com.affine.readonly-mode.edit.tooltip": "Modalità di modifica",
+  "com.affine.readonly-mode.readonly.tooltip": "Modalità di sola lettura",
+  "com.affine.readonly-mode.edit.button": "Modifica",
+  "com.affine.readonly-mode.readonly.button": "Sola lettura"
 }

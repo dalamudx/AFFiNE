@@ -35,5 +35,11 @@
   "Default db location hint": "Será guardado por defecto en {{location}}",
   "Delete": "Borrar",
   "Delete Member?": "Borrar Miembro?",
-  "Delete Workspace": "Borrar Espacio de Trabajo"
+  "Delete Workspace": "Borrar Espacio de Trabajo",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.title": "Modo de solo lectura predeterminado",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.description": "Abrir documentos como solo lectura de forma predeterminada. Puedes cambiar al modo de edición usando el botón de editar.",
+  "com.affine.readonly-mode.edit.tooltip": "Modo de edición",
+  "com.affine.readonly-mode.readonly.tooltip": "Modo de solo lectura",
+  "com.affine.readonly-mode.edit.button": "Editar",
+  "com.affine.readonly-mode.readonly.button": "Solo lectura"
 }
