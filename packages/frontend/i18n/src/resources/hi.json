@@ -21,5 +21,11 @@
   "Back to Quick Search": "त्वरित खोज पर वापस जाएँ",
   "Back to all": "सभी पर वापस जाएँ",
   "Body text": "मुख्य भाग",
-  "Bold": "बोल्ड "
+  "Bold": "बोल्ड ",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.title": "डिफ़ॉल्ट केवल-पढ़ने योग्य मोड",
+  "com.affine.settings.editorSettings.general.default-readonly-mode.description": "दस्तावेज़ों को डिफ़ॉल्ट रूप से केवल-पढ़ने योग्य के रूप में खोलें। आप संपादन बटन का उपयोग करके संपादन मोड में स्विच कर सकते हैं।",
+  "com.affine.readonly-mode.edit.tooltip": "संपादन मोड",
+  "com.affine.readonly-mode.readonly.tooltip": "केवल-पढ़ने योग्य मोड",
+  "com.affine.readonly-mode.edit.button": "संपादित करें",
+  "com.affine.readonly-mode.readonly.button": "केवल-पढ़ने योग्य"
 }

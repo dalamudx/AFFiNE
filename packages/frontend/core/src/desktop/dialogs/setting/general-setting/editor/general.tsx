@@ -563,6 +563,35 @@ const MiddleClickPasteSettings = () => {
   );
 };
 
+const DefaultReadonlyModeSettings = () => {
+  const t = useI18n();
+  const editorSettingService = useService(EditorSettingService);
+  const settings = useLiveData(editorSettingService.editorSetting.settings$);
+
+  const onToggleDefaultReadonlyMode = useCallback(
+    (checked: boolean) => {
+      editorSettingService.editorSetting.set('defaultReadonlyMode', checked);
+    },
+    [editorSettingService.editorSetting]
+  );
+
+  return (
+    <SettingRow
+      name={t[
+        'com.affine.settings.editorSettings.general.default-readonly-mode.title'
+      ]()}
+      desc={t[
+        'com.affine.settings.editorSettings.general.default-readonly-mode.description'
+      ]()}
+    >
+      <Switch
+        checked={settings.defaultReadonlyMode}
+        onChange={onToggleDefaultReadonlyMode}
+      />
+    </SettingRow>
+  );
+};
+
 export const General = () => {
   const t = useI18n();
 
@@ -572,6 +601,7 @@ export const General = () => {
       <FontFamilySettings />
       <CustomFontFamilySettings />
       <FontSizeSettings />
+      <DefaultReadonlyModeSettings />
       <NewDocDefaultModeSettings />
       {BUILD_CONFIG.isElectron && <SpellCheckSettings />}
       {environment.isLinux && <MiddleClickPasteSettings />}
