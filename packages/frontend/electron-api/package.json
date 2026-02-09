@@ -1,6 +1,6 @@
 {
   "name": "@affine/electron-api",
-  "version": "0.26.1",
+  "version": "0.26.2",
   "type": "module",
   "private": true,
   "main": "./src/index.ts",
