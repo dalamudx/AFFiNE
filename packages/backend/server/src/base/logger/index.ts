@@ -1,3 +1,5 @@
+import './config'; // side-effect: registers the logger.level config descriptor via defineModuleConfig
+
 import { Global, Module } from '@nestjs/common';
 
 import { ConfigModule } from '../config';

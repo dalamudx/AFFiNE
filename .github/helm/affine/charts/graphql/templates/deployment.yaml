@@ -86,6 +86,8 @@ spec:
             value: "{{ .Values.app.https }}"
           - name: DOC_SERVICE_ENDPOINT
             value: "http://{{ .Values.global.docService.name }}:{{ .Values.global.docService.port }}"
+          - name: LOG_LEVEL
+            value: "{{ .Values.logLevel | default "log" }}"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
