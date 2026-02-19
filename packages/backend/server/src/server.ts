@@ -30,8 +30,14 @@ export async function run() {
   app.useBodyParser('raw', { limit: 100 * OneMB });
 
   const logger = app.get(AFFiNELogger);
-  app.useLogger(logger);
   const config = app.get(Config);
+  // Apply the configured minimum log level; setLogLevels accepts an array of levels to enable.
+  const allLevels = ['verbose', 'debug', 'log', 'warn', 'error', 'fatal'] as const;
+  type NestLogLevel = (typeof allLevels)[number];
+  const minLevel = (config.logger.level as NestLogLevel) ?? 'log';
+  const activeLevels = allLevels.slice(allLevels.indexOf(minLevel)) as unknown as NestLogLevel[];
+  logger.setLogLevels([...activeLevels]);
+  app.useLogger(logger);
 
   if (config.server.path) {
     app.setGlobalPrefix(config.server.path);

@@ -9,6 +9,9 @@ nameOverride: ''
 fullnameOverride: ''
 # map to NODE_ENV environment variable
 env: 'production'
+# Minimum log level emitted by the server, maps to the LOG_LEVEL environment variable.
+# Accepted values (verbose to quiet): verbose / debug / log / warn / error / fatal
+logLevel: 'log'
 app:
   # AFFINE_SERVER_SUB_PATH
   path: ''
