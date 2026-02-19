@@ -1,6 +1,5 @@
 import { IconButton } from '@affine/component';
 import { DocService } from '@affine/core/modules/doc';
-import { EditorService } from '@affine/core/modules/editor';
 import { EditorSettingService } from '@affine/core/modules/editor-setting';
 import { useI18n } from '@affine/i18n';
 import { EditIcon, ViewIcon } from '@blocksuite/icons/rc';
@@ -10,12 +9,9 @@ import { useCallback, useEffect, useState } from 'react';
 export const ReadonlyModeToggleButton = () => {
   const t = useI18n();
   const docService = useService(DocService);
-  const editorService = useService(EditorService);
   const editorSettingService = useService(EditorSettingService);
 
   const doc = docService.doc;
-  const editor = editorService.editor;
-  const mode = useLiveData(editor.mode$);
   const settings = useLiveData(editorSettingService.editorSetting.settings$);
 
   const [isReadonly, setIsReadonly] = useState(true);
@@ -36,18 +32,16 @@ export const ReadonlyModeToggleButton = () => {
     }
   }, [isReadonly, doc.blockSuiteDoc]);
 
-  // Don't show button if:
-  // 1. Default readonly mode is not enabled
-  // 2. Current mode is edgeless
-  if (!settings.defaultReadonlyMode || mode === 'edgeless') {
+  // Don't show button if default readonly mode is not enabled
+  if (!settings.defaultReadonlyMode) {
     return null;
   }
 
   const tooltipContent = isReadonly
     ? t['com.affine.readonly-mode.edit.tooltip']?.() ||
-      'Click to switch to edit mode'
+    'Click to switch to edit mode'
     : t['com.affine.readonly-mode.readonly.tooltip']?.() ||
-      'Click to switch to readonly mode';
+    'Click to switch to readonly mode';
 
   return (
     <IconButton
