@@ -120,6 +120,7 @@ export const FunctionalityModules = [
   ModelsModule,
   ScheduleModule.forRoot(),
   MonitorModule,
+  TelemetryModule,
 ];
 
 export class AppModuleBuilder {
@@ -180,11 +181,7 @@ export function buildAppModule(env: Env) {
     // renderer server and front server
     .useIf(() => env.flavors.renderer || env.flavors.front, DocRendererModule)
     // sync server and front server
-    .useIf(
-      () => env.flavors.sync || env.flavors.front,
-      SyncModule,
-      TelemetryModule
-    )
+    .useIf(() => env.flavors.sync || env.flavors.front, SyncModule)
     // graphql server only
     .useIf(
       () => env.flavors.graphql,
@@ -200,7 +197,6 @@ export function buildAppModule(env: Env) {
       OAuthModule,
       CalendarModule,
       CustomerIoModule,
-      TelemetryModule,
       CommentModule,
       AccessTokenModule,
       QueueDashboardModule
