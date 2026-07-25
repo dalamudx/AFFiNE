@@ -15,6 +15,7 @@ const editorSettingService = {
         autoTitleNewDocWithCurrentDate: true,
         newDocDateTitleFormat: 'DD-MM-YYYY',
         displayAddIconOption: true,
+        defaultReadonlyMode: true,
       },
     },
     set: editorSettingSet,
@@ -83,7 +84,35 @@ vi.mock('@toeverything/infra', async importOriginal => {
   };
 });
 
-import { NewDocDateTitleSettings } from './general';
+import {
+  DefaultReadonlyModeSettings,
+  NewDocDateTitleSettings,
+} from './general';
+
+describe('DefaultReadonlyModeSettings', () => {
+  beforeEach(() => {
+    editorSettingSet.mockReset();
+    editorSettingService.editorSetting['settings$'].value = {
+      autoTitleNewDocWithCurrentDate: true,
+      newDocDateTitleFormat: 'DD-MM-YYYY',
+      displayAddIconOption: true,
+      defaultReadonlyMode: true,
+    };
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.clearAllMocks();
+  });
+
+  test('persists the default readonly toggle through EditorSettingService', () => {
+    render(<DefaultReadonlyModeSettings />);
+
+    fireEvent.click(screen.getByTestId('default-readonly-mode-trigger'));
+
+    expect(editorSettingSet).toHaveBeenCalledWith('defaultReadonlyMode', false);
+  });
+});
 
 describe('NewDocDateTitleSettings', () => {
   beforeEach(() => {
@@ -92,6 +121,7 @@ describe('NewDocDateTitleSettings', () => {
       autoTitleNewDocWithCurrentDate: true,
       newDocDateTitleFormat: 'DD-MM-YYYY',
       displayAddIconOption: true,
+      defaultReadonlyMode: true,
     };
   });
 
@@ -147,6 +177,7 @@ describe('NewDocDateTitleSettings', () => {
       autoTitleNewDocWithCurrentDate: false,
       newDocDateTitleFormat: 'DD-MM-YYYY',
       displayAddIconOption: true,
+      defaultReadonlyMode: true,
     };
 
     render(<NewDocDateTitleSettings />);

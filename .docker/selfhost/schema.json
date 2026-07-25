@@ -148,6 +148,17 @@
         }
       }
     },
+    "logger": {
+      "type": "object",
+      "description": "Configuration for logger module",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Minimum log level to output. One of: verbose, debug, log, warn, error, fatal.\n@default \"log\"\n@environment `LOG_LEVEL`",
+          "default": "log"
+        }
+      }
+    },
     "throttle": {
       "type": "object",
       "description": "Configuration for throttle module",

@@ -56,6 +56,13 @@
       "desc": "The config for invite abuse disposition job queue"
     }
   },
+  "logger": {
+    "level": {
+      "type": "String",
+      "desc": "Minimum log level to output. One of: verbose, debug, log, warn, error, fatal.",
+      "env": "LOG_LEVEL"
+    }
+  },
   "throttle": {
     "enabled": {
       "type": "Boolean",

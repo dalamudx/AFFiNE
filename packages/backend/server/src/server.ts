@@ -13,6 +13,7 @@ import {
   CORS_ALLOWED_METHODS,
   CORS_EXPOSED_HEADERS,
   corsOriginCallback,
+  enabledLogLevels,
   GlobalExceptionFilter,
   URLHelper,
 } from './base';
@@ -36,8 +37,9 @@ export async function run() {
   app.useBodyParser('raw', { limit: 100 * OneMB });
 
   const logger = app.get(AFFiNELogger);
-  app.useLogger(logger);
   const config = app.get(Config);
+  logger.setLogLevels(enabledLogLevels(config.logger.level));
+  app.useLogger(logger);
   const url = app.get(URLHelper);
   let telemetry: TelemetryService | null = null;
   try {

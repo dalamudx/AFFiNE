@@ -29,6 +29,7 @@ const AffineEditorSettingSchema = z.object({
   customFontFamily: z.string().default(''),
   fontSize: z.number().min(12).max(24).default(16),
   newDocDefaultMode: z.enum(['edgeless', 'page', 'ask']).default('page'),
+  defaultReadonlyMode: z.boolean().default(false),
   autoTitleNewDocWithCurrentDate: z.boolean().default(false),
   newDocDateTitleFormat: z
     .enum(newDocDateTitleFormatOptions)

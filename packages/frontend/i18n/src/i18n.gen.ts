@@ -5514,6 +5514,22 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.settings.editorSettings.general.default-new-doc.title"](): string;
     /**
+      * `Open documents in read-only mode`
+      */
+    ["com.affine.settings.editorSettings.general.default-readonly.title"](): string;
+    /**
+      * `Existing documents open in read-only mode. Newly created documents remain editable for their first session.`
+      */
+    ["com.affine.settings.editorSettings.general.default-readonly.description"](): string;
+    /**
+      * `Switch to edit mode`
+      */
+    ["com.affine.readonly-mode.edit.tooltip"](): string;
+    /**
+      * `Switch to read-only mode`
+      */
+    ["com.affine.readonly-mode.readonly.tooltip"](): string;
+    /**
       * `Auto-title new docs with current date`
       */
     ["com.affine.settings.editorSettings.general.auto-date-title.title"](): string;

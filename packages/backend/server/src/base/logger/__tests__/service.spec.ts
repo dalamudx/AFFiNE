@@ -4,12 +4,19 @@ import { TestingModule } from '@nestjs/testing';
 import ava, { TestFn } from 'ava';
 
 import { createTestingModule } from '../../../__tests__/utils';
+import { enabledLogLevels, logLevels } from '../config';
 import { AFFiNELogger } from '../service';
 
 export const test = ava as TestFn<{
   module: TestingModule;
   logger: AFFiNELogger;
 }>;
+
+test('enables each Nest log level at and above the configured minimum', t => {
+  for (const [index, level] of logLevels.entries()) {
+    t.deepEqual(enabledLogLevels(level), logLevels.slice(index));
+  }
+});
 
 test.before(async t => {
   const m = await createTestingModule({

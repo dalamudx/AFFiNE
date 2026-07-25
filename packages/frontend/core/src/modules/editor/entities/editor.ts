@@ -33,6 +33,7 @@ export class Editor extends Entity {
   });
 
   readonly mode$ = new LiveData<DocMode>('page');
+  readonly readonly$ = new LiveData(false);
   readonly selector$ = new LiveData<EditorSelector | undefined>(undefined);
   readonly doc = this.docService.doc;
   readonly isSharedMode =
@@ -104,6 +105,10 @@ export class Editor extends Entity {
 
   setMode(mode: DocMode) {
     this.mode$.next(mode);
+  }
+
+  setReadonly(readonly: boolean) {
+    this.readonly$.next(readonly);
   }
 
   setDefaultOpenProperty(defaultOpenProperty: DefaultOpenProperty | undefined) {
@@ -300,7 +305,7 @@ export class Editor extends Entity {
       const initialFocusAt = this.focusAt$.value;
 
       if (initialFocusAt === null) {
-        const title = docTitle?.querySelector<
+        const title = (docTitle as HTMLElement | null)?.querySelector<
           HTMLElement & { inlineEditor: InlineEditor | null }
         >('rich-text');
         // Only focus on the title when it's empty on mobile edition.

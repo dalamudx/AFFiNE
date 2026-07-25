@@ -4,7 +4,7 @@ import { createModule } from '../../../__tests__/create-module';
 import { InvalidAppConfig } from '../../error';
 import { Config } from '../config';
 import { ConfigFactory, ConfigModule } from '../index';
-import { override } from '../register';
+import { getDefaultConfig, override } from '../register';
 
 const module = await createModule();
 test.after.always(async () => {
@@ -16,6 +16,44 @@ test('should create config', t => {
 
   t.is(typeof config.auth.passwordRequirements.max, 'number');
   t.is(typeof config.job.queue, 'object');
+  t.is(config.logger.level, 'log');
+});
+
+test('should read configured logger levels', t => {
+  const config = module.get(ConfigFactory);
+
+  t.is(
+    config.validate([
+      {
+        module: 'logger',
+        key: 'level',
+        value: 'warn',
+      },
+    ]),
+    null
+  );
+
+  const [error] = config.validate([
+    {
+      module: 'logger',
+      key: 'level',
+      value: 'invalid',
+    },
+  ])!;
+
+  t.true(error instanceof InvalidAppConfig);
+
+  const previousLogLevel = process.env.LOG_LEVEL;
+  try {
+    process.env.LOG_LEVEL = 'warn';
+    t.is(getDefaultConfig().logger.level, 'warn');
+  } finally {
+    if (previousLogLevel === undefined) {
+      delete process.env.LOG_LEVEL;
+    } else {
+      process.env.LOG_LEVEL = previousLogLevel;
+    }
+  }
 });
 
 test('should override config', async t => {

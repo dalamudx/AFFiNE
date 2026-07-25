@@ -8,6 +8,10 @@ import { EditorService } from './services/editor';
 import { EditorsService } from './services/editors';
 
 export { Editor } from './entities/editor';
+export {
+  resolveEditorReadonly,
+  resolveInitialEditorReadonly,
+} from './readonly';
 export { EditorScope } from './scopes/editor';
 export { EditorService } from './services/editor';
 export { EditorsService } from './services/editors';

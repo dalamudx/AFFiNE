@@ -23,6 +23,8 @@ import { getDuplicatedDocTitle } from './duplicate-title';
 const logger = new DebugLogger('DocsService');
 
 export class DocsService extends Service {
+  private readonly pendingEditableDocIds = new Set<string>();
+
   list = this.framework.createEntity(DocRecordList);
 
   pool = new ObjectPool<string, Doc>({
@@ -141,6 +143,10 @@ export class DocsService extends Service {
     return { doc: obj, release };
   }
 
+  takePendingEditableDoc(docId: string) {
+    return this.pendingEditableDocIds.delete(docId);
+  }
+
   createDoc(options: DocCreateOptions = {}) {
     for (const middleware of this.docCreateMiddlewares) {
       options = middleware.beforeCreate
@@ -148,6 +154,9 @@ export class DocsService extends Service {
         : options;
     }
     const id = this.store.createDoc(options.id);
+    if (!options.id) {
+      this.pendingEditableDocIds.add(id);
+    }
     const docStore = this.store.getBlockSuiteDoc(id);
     if (!docStore) {
       throw new Error('Failed to create doc');

@@ -183,11 +183,7 @@ export function buildAppModule(env: Env) {
     // renderer server and front server
     .useIf(() => env.flavors.renderer || env.flavors.front, DocRendererModule)
     // sync server and front server
-    .useIf(
-      () => env.flavors.sync || env.flavors.front,
-      SyncModule,
-      TelemetryModule
-    )
+    .useIf(() => env.flavors.sync || env.flavors.front, SyncModule)
     .useIf(
       () => !env.flavors.graphql && (env.flavors.sync || env.flavors.front),
       ServerRealtimeHandlersModule
@@ -206,9 +202,13 @@ export function buildAppModule(env: Env) {
       CaptchaModule,
       OAuthModule,
       CalendarModule,
-      TelemetryModule,
       CommentModule,
       QueueDashboardModule
+    )
+    // telemetry collection is available on GraphQL, sync, and front services
+    .useIf(
+      () => env.flavors.graphql || env.flavors.sync || env.flavors.front,
+      TelemetryModule
     )
     // doc service and front service
     .useIf(() => env.flavors.doc || env.flavors.front, DocServiceModule)

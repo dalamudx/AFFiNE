@@ -55,6 +55,8 @@ spec:
             value: "--max-old-space-size=2048"
           - name: NO_COLOR
             value: "1"
+          - name: LOG_LEVEL
+            value: "{{ .Values.logLevel | default "log" }}"
           - name: DEPLOYMENT_TYPE
             value: "{{ .Values.global.deployment.type }}"
           - name: DEPLOYMENT_PLATFORM

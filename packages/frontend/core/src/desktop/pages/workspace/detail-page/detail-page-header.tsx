@@ -15,6 +15,7 @@ import { BlocksuiteHeaderTitle } from '@affine/core/blocksuite/block-suite-heade
 import { EditorModeSwitch } from '@affine/core/blocksuite/block-suite-mode-switch';
 import { useRegisterCopyLinkCommands } from '@affine/core/components/hooks/affine/use-register-copy-link-commands';
 import { HeaderDivider } from '@affine/core/components/pure/header';
+import { ReadonlyModeToggleButton } from '@affine/core/components/readonly-mode-toggle-button';
 import { DocService } from '@affine/core/modules/doc';
 import { DocDisplayMetaService } from '@affine/core/modules/doc-display-meta';
 import { EditorService } from '@affine/core/modules/editor';
@@ -110,6 +111,7 @@ export function JournalPageHeader({ page, workspace }: PageHeaderProps) {
       <TemplateMark className={styles.journalTemplateMark} />
       {hideToday ? null : <JournalTodayButton />}
       <HeaderDivider />
+      <ReadonlyModeToggleButton />
       <PageHeaderMenuButton
         isJournal
         page={page}
@@ -165,6 +167,7 @@ export function NormalPageHeader({ page, workspace }: PageHeaderProps) {
             <InfoButton docId={page.id} />
           </>
         )}
+        <ReadonlyModeToggleButton />
         <PageHeaderMenuButton
           rename={onRename}
           page={page}

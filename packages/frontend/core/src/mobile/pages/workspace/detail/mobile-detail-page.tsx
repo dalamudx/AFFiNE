@@ -12,7 +12,10 @@ import { AIButtonService } from '@affine/core/modules/ai-button';
 import { ServerService } from '@affine/core/modules/cloud';
 import { DocService } from '@affine/core/modules/doc';
 import { DocDisplayMetaService } from '@affine/core/modules/doc-display-meta';
-import { EditorService } from '@affine/core/modules/editor';
+import {
+  EditorService,
+  resolveEditorReadonly,
+} from '@affine/core/modules/editor';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { GlobalContextService } from '@affine/core/modules/global-context';
 import { JournalService } from '@affine/core/modules/journal';
@@ -97,6 +100,7 @@ const DetailPageImpl = ({
   const doc = docService.doc;
 
   const mode = useLiveData(editor.mode$);
+  const userReadonly = useLiveData(editor.readonly$);
 
   const isInTrash = useLiveData(doc.meta$.map(meta => meta.trash));
   const { openPage, jumpToPageBlock } = useNavigateHelper();
@@ -209,11 +213,14 @@ const DetailPageImpl = ({
 
   const canEdit = useGuard('Doc_Update', doc.id);
 
-  const readonly =
-    !canEdit ||
-    isInTrash ||
-    !enableKeyboardToolbar ||
-    (mode === 'edgeless' && !enableEdgelessEditing);
+  const readonly = resolveEditorReadonly({
+    forcedReadonly:
+      !canEdit ||
+      Boolean(isInTrash) ||
+      !enableKeyboardToolbar ||
+      (mode === 'edgeless' && !enableEdgelessEditing),
+    userReadonly,
+  });
 
   const immersiveZoomToolbarBottom = getImmersiveZoomToolbarBottom({
     immersive,

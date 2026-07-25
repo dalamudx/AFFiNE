@@ -18,7 +18,10 @@ import { TrashPageFooter } from '@affine/core/components/pure/trash-page-footer'
 import { TopTip } from '@affine/core/components/top-tip';
 import { ServerService } from '@affine/core/modules/cloud';
 import { DocService } from '@affine/core/modules/doc';
-import { EditorService } from '@affine/core/modules/editor';
+import {
+  EditorService,
+  resolveEditorReadonly,
+} from '@affine/core/modules/editor';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { GlobalContextService } from '@affine/core/modules/global-context';
 import { JournalService } from '@affine/core/modules/journal';
@@ -97,6 +100,7 @@ const DetailPageImpl = memo(function DetailPageImpl() {
   const doc = docService.doc;
 
   const mode = useLiveData(editor.mode$);
+  const userReadonly = useLiveData(editor.readonly$);
   const activeSidebarTab = useLiveData(view.activeSidebarTab$);
 
   const isInTrash = useLiveData(doc.meta$.map(meta => meta.trash));
@@ -316,8 +320,10 @@ const DetailPageImpl = memo(function DetailPageImpl() {
   const [dragging, setDragging] = useState(false);
 
   const canEdit = useGuard('Doc_Update', doc.id);
-
-  const readonly = !canEdit || isInTrash;
+  const readonly = resolveEditorReadonly({
+    forcedReadonly: !canEdit || Boolean(isInTrash),
+    userReadonly,
+  });
 
   return (
     <FrameworkScope scope={editor.scope}>

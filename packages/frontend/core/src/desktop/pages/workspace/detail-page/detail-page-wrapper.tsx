@@ -1,6 +1,10 @@
 import { type Doc, DocsService } from '@affine/core/modules/doc';
 import type { Editor } from '@affine/core/modules/editor';
-import { EditorsService } from '@affine/core/modules/editor';
+import {
+  EditorsService,
+  resolveInitialEditorReadonly,
+} from '@affine/core/modules/editor';
+import { EditorSettingService } from '@affine/core/modules/editor-setting';
 import { ViewService } from '@affine/core/modules/workbench/services/view';
 import { WorkspaceService } from '@affine/core/modules/workspace';
 import { FrameworkScope, useLiveData, useService } from '@toeverything/infra';
@@ -30,6 +34,15 @@ const useLoadDoc = (pageId: string) => {
     const { doc, release } = docsService.open(pageId);
     setDoc(doc);
     const editor = doc.scope.get(EditorsService).createEditor();
+    const defaultReadonlyMode =
+      doc.scope.get(EditorSettingService).editorSetting.settings$.value
+        .defaultReadonlyMode;
+    editor.setReadonly(
+      resolveInitialEditorReadonly({
+        defaultReadonlyMode,
+        isNewDoc: docsService.takePendingEditableDoc(pageId),
+      })
+    );
     const unbind = editor.bindWorkbenchView(viewService.view);
     setEditor(editor);
     return () => {

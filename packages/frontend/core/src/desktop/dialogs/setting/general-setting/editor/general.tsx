@@ -430,6 +430,35 @@ const NewDocDefaultModeSettings = () => {
   );
 };
 
+export const DefaultReadonlyModeSettings = () => {
+  const t = useI18n();
+  const { editorSettingService } = useServices({ EditorSettingService });
+  const settings = useLiveData(editorSettingService.editorSetting.settings$);
+  const onToggleDefaultReadonlyMode = useCallback(
+    (checked: boolean) => {
+      editorSettingService.editorSetting.set('defaultReadonlyMode', checked);
+    },
+    [editorSettingService.editorSetting]
+  );
+
+  return (
+    <SettingRow
+      name={t[
+        'com.affine.settings.editorSettings.general.default-readonly.title'
+      ]()}
+      desc={t[
+        'com.affine.settings.editorSettings.general.default-readonly.description'
+      ]()}
+    >
+      <Switch
+        data-testid="default-readonly-mode-trigger"
+        checked={settings.defaultReadonlyMode}
+        onChange={onToggleDefaultReadonlyMode}
+      />
+    </SettingRow>
+  );
+};
+
 const getDateTitleFormatLabel = (format: NewDocDateTitleFormat) => {
   return `com.affine.settings.editorSettings.general.auto-date-title.format.${format.toLowerCase()}` as const;
 };
@@ -684,6 +713,7 @@ export const General = () => {
       <CustomFontFamilySettings />
       <FontSizeSettings />
       <NewDocDefaultModeSettings />
+      <DefaultReadonlyModeSettings />
       <NewDocDateTitleSettings />
       {BUILD_CONFIG.isElectron && <SpellCheckSettings />}
       {environment.isLinux && <MiddleClickPasteSettings />}
