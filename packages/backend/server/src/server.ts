@@ -41,12 +41,10 @@ export async function run() {
   logger.setLogLevels(enabledLogLevels(config.logger.level));
   app.useLogger(logger);
   const url = app.get(URLHelper);
-  let telemetry: TelemetryService | null = null;
-  try {
-    telemetry = app.get(TelemetryService, { strict: false });
-  } catch {
-    telemetry = null;
-  }
+  const telemetry =
+    env.flavors.graphql || env.flavors.sync || env.flavors.front
+      ? app.get(TelemetryService, { strict: false })
+      : null;
 
   const defaultAllowedOrigins = buildCorsAllowedOrigins(url);
 
